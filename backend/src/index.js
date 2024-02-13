@@ -1,21 +1,15 @@
 const express = require('express')
+const routes = require('./routes.js')
 const app = express()
 
-require('./config/dbConfig.js')
-
 app.use(express.json())
+app.use(routes)
+
+require('./config/dbConfig.js')
 
 const PORT = 3333
 
 
-
-app.get('/', (req, res) => {
-    return res.json({
-        nome: 'Fellipe',
-        sobrenome: 'Castro',
-        profissao: 'Programador'
-    })
-})
 
 app.listen(PORT, () => {
     console.log(`Servidor rodando em: http://localhost:${PORT}`)
