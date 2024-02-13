@@ -4,7 +4,7 @@ const routes = express.Router()
 const AnnotationController = require('./controllers/AnnotationController.js')
 
 // Rota Annotation
-routes.post('/annotations', AnnotationController.create)
 routes.get('/annotations', AnnotationController.read)
+routes.post('/annotations', AnnotationController.create)
 
 module.exports = routes
