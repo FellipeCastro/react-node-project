@@ -7,6 +7,7 @@ import './Sidebar.css'
 import './Main.css'
 
 import Notes from './components/Notes'
+import RadioButton from './components/RadioButton'
 
 function App() {
   const [title, setTitle] = useState('')
@@ -23,7 +24,7 @@ function App() {
     getAllNotes()
   }, [title, notes])
 
-  const hanldeSubit = async (e) => {
+  const hanldeSubmit = async (e) => {
     e.preventDefault()
 
     const res = await api.post('/annotations', {
@@ -38,11 +39,23 @@ function App() {
     setAllNotes([...allNotes, res.data])
   }
 
+  useEffect(() => {
+    const enableSubmitButton = () => {
+      let btn = document.getElementById('btn-submit')
+      btn.style.background = '#ffd3c4'
+      if (title && notes) {
+        btn.style.background = '#eb8f7a'
+      }
+    }
+
+    enableSubmitButton()
+  }, [title, notes])
+
   return (
     <div id='app'>
       <aside>
         <strong>Caderno de notas</strong>
-        <form onSubmit={hanldeSubit}>
+        <form onSubmit={hanldeSubmit}>
           <div className="input-block">
             <label htmlFor="title">Título da anotação</label>
             <input type="text" onChange={(e) => setTitle(e.target.value)} value={title} required />
@@ -53,8 +66,9 @@ function App() {
             <textarea onChange={(e) => setNotes(e.target.value)} value={notes} required></textarea>
           </div>
 
-          <button type="submit">Salvar</button>
+          <button id='btn-submit' type="submit">Salvar</button>
         </form>
+        <RadioButton />
       </aside>
 
       <main>

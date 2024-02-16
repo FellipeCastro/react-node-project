@@ -30,13 +30,8 @@ li.notepad-infos strong {
 }
 
 li.notepad-infos div div {
-    color: #ffeae6;
-    cursor: pointer;
-}
-
-li.notepad-infos div div:hover {
     color: #eb8f7a;
-    transition: .2s;
+    cursor: pointer;
 }
 
 li.notepad-infos textarea {
@@ -53,13 +48,29 @@ li.notepad-infos textarea {
 }
 
 li.notepad-infos span {
-    color: #c4c4c4;
+    color: #eb8f7a;
     cursor: pointer;
 }
 
-li.notepad-infos span:hover {
-    color: #eb8f7a;
-    transition: .2s;
+li.priority {
+    background-color: #eb8f7a;
+}
+
+li.priority strong {
+    color: #fff;
+}
+
+li.priority textarea {
+    background-color: #eb8f7a;
+    color: #fff;
+}
+
+li.priority div div {
+    color: #fff;
+}
+
+li.priority span {
+    color: #fff;
 }
 
 @media screen and (max-width: 600px) {

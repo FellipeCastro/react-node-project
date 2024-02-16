@@ -1,0 +1,27 @@
+.radio-options {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.radio-options label {
+    font-weight: bold;
+    color: #acacac;
+    margin-right: 10px;
+}
+
+.radio-options input[type="radio"] {
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    border: 2px solid #eb8f7a;
+    outline: none;
+    margin-right: 5px; /* Ajuste conforme necessário */
+}
+
+.radio-options input[type="radio"]:checked {
+    background-color: #eb8f7a;
+}
