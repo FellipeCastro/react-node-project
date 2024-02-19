@@ -24,6 +24,14 @@ function App() {
     getAllNotes()
   }, [title, notes])
 
+  const handleDelete = async (id) => {
+    const deletedNote = await api.delete(`/annotations/${id}`)
+
+    if (deletedNote) {
+      setAllNotes(allNotes.filter(note => note._id !== id))
+    }
+  }
+
   const hanldeSubmit = async (e) => {
     e.preventDefault()
 
@@ -76,7 +84,9 @@ function App() {
           {allNotes.map(data => {
             return (
               <Notes
+                key={data._id}
                 data={data}
+                handleDelete={handleDelete}
               />
             )
 
