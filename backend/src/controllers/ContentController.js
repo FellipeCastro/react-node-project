@@ -6,15 +6,19 @@ module.exports = {
         const { id } = req.params
         const { notes } = req.body
 
-        const annotation = await Annotations.findOne({ _id : id })
+        try {
+            const annotation = await Annotations.findOne({ _id : id })
 
-        if (notes) {
-            annotation.notes = notes
-            
-            await annotation.save()
+            if (notes) {
+                annotation.notes = notes
+                
+                await annotation.save()
+            }
+
+            return res.json(annotation)            
+        } catch(err) {
+            console.log(`Erro ao atualizar nota: ${err}`)
         }
-
-        return res.json(annotation)
     }
 
 }
