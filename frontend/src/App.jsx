@@ -13,22 +13,41 @@ function App() {
   const [title, setTitle] = useState('')
   const [notes, setNotes] = useState('')
   const [allNotes, setAllNotes] = useState([])
+  const [selectedOption, setSelectedOption] = useState("all")
 
   useEffect(() => {
-    const getAllNotes = async () => {
-      const res = await api.get('/annotations')
+    getAllNotes()
+  }, [])
 
+  const getAllNotes = async () => {
+    const res = await api.get('/annotations')
+    setAllNotes(res.data)
+  }
+
+  const loadNotes = async (option) => {
+    const params = { priority: option }
+    const res = await api.get(`/priorities/${params}`)
+
+    if (res) {
       setAllNotes(res.data)
     }
-
-    getAllNotes()
-  }, [title, notes])
+  }
 
   const handleDelete = async (id) => {
     const deletedNote = await api.delete(`/annotations/${id}`)
 
     if (deletedNote) {
       setAllNotes(allNotes.filter(note => note._id !== id))
+    }
+  }
+
+  const handleChangePriority = async (id) => {
+    const note = await api.post(`/priorities/${id}`)
+
+    if (note && selectedOption === 'all') {
+      loadNotes(selectedOption)
+    } else if (note) {
+      getAllNotes()
     }
   }
 
@@ -44,8 +63,22 @@ function App() {
     setTitle('')
     setNotes('')
 
-    setAllNotes([...allNotes, res.data])
+    if (selectedOption !== 'all') {
+      getAllNotes()
+    } else {
+      setAllNotes([...allNotes, res.data])
+    }    
   }
+
+  const handleOptionChange = (e) => {
+    setSelectedOption(e.target.id)
+
+    if (e.target.checked && e.target.id !== 'all') {
+        loadNotes(e.target.id)
+    } else {
+        getAllNotes()
+    }
+}
 
   useEffect(() => {
     const enableSubmitButton = () => {
@@ -76,7 +109,10 @@ function App() {
 
           <button id='btn-submit' type="submit">Salvar</button>
         </form>
-        <RadioButton />
+        <RadioButton 
+          selectedOption={selectedOption}
+          handleOptionChange={handleOptionChange}
+        />
       </aside>
 
       <main>
@@ -87,6 +123,7 @@ function App() {
                 key={data._id}
                 data={data}
                 handleDelete={handleDelete}
+                handleChangePriority={handleChangePriority}
               />
             )
 

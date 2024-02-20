@@ -4,7 +4,7 @@ import { AiOutlineDelete , AiOutlineExclamationCircle  } from "react-icons/ai"
 
 import api from "../services/api"
 
-function Notes({ key, data, handleDelete }) {
+function Notes({ key, data, handleDelete, handleChangePriority }) {
     const [changedNotes, setChangedNotes] = useState('')
 
     const handleEdit = (e, priority) => {
@@ -23,20 +23,10 @@ function Notes({ key, data, handleDelete }) {
         e.style.boxShadow = 'none'
 
         // Não está funcionando
-        // if (changedNotes && changedNotes !== notes) {
-        //     await api.post(`/contents/${data.id}`, {
-        //         notes: changedNotes,
-        //     })
-        // }
-
-        try {
-            if (changedNotes && changedNotes !== notes) {
-                await api.post(`/contents/${data.id}`, {
-                    notes: changedNotes,
-                })
-            }
-        } catch (err) {
-            console.log(`Erro ao atualizar nota: ${err}`)
+        if (changedNotes && changedNotes !== notes) {
+            await api.post(`/contents/${data._id}`, {
+                notes: changedNotes,
+            })
         }
     }
 
@@ -57,7 +47,7 @@ function Notes({ key, data, handleDelete }) {
                         onBlur={e => handleSave(e.target, data.notes)} // quando clicar fora/desfocar
                     />
                     <span>
-                        <AiOutlineExclamationCircle size='20' />
+                        <AiOutlineExclamationCircle size='20' onClick={() => handleChangePriority(data._id)} />
                     </span>
                 </div>
             </li>

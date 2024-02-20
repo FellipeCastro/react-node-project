@@ -10,6 +10,7 @@
     font-weight: bold;
     color: #acacac;
     margin-right: 10px;
+    cursor: pointer;
 }
 
 .radio-options input[type="radio"] {
@@ -19,7 +20,8 @@
     border-radius: 50%;
     border: 2px solid #eb8f7a;
     outline: none;
-    margin-right: 5px; /* Ajuste conforme necessário */
+    margin-right: 5px;
+    cursor: pointer;
 }
 
 .radio-options input[type="radio"]:checked {
