@@ -25,8 +25,7 @@ function App() {
   }
 
   const loadNotes = async (option) => {
-    const params = { priority: option }
-    const res = await api.get(`/priorities/${params}`)
+    const res = await api.get(`/priorities?priority=${option}`)
 
     if (res) {
       setAllNotes(res.data)
